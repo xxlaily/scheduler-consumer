@@ -1,4 +1,5 @@
 package cn.dm.controller;
+import cn.dm.client.RestDmCinemaSeatClient;
 import cn.dm.client.RestDmSchedulerClient;
 import cn.dm.client.RestDmSchedulerSeatClient;
 import cn.dm.client.RestDmSchedulerSeatPriceClient;
@@ -37,6 +38,9 @@ public class SchedulerController {
     private RestDmSchedulerClient restDmSchedulerClient;
 
     @Autowired
+    private RestDmCinemaSeatClient restDmCinemaSeatClient;
+
+    @Autowired
     private RestDmSchedulerSeatPriceClient restDmSchedulerSeatPriceClient;
 
     /***
@@ -48,7 +52,7 @@ public class SchedulerController {
     @RequestMapping("/queryOriginalCinemaSeatArray")
     public Dto<List<Map<String,Object>>> queryCinemaSeatArray(@RequestBody Map<String,Object> params) throws Exception {
         Map<String,Object> result=new HashMap<String,Object>();
-        List<String> seatArray=restDmSchedulerSeatClient.queryCinemaSeatArray(params);
+        List<String> seatArray=restDmCinemaSeatClient.queryCinemaSeatArray(params);
         result.put("cinemaId",params.get("cinemaId"));
         result.put("seatArray",seatArray);
         //查询座位以数组的形式返回
